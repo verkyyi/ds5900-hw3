@@ -1,0 +1,193 @@
+---
+title: "Combating Election Misinformation on Social Media"
+subtitle: "DSAN 5900: Digital Storytelling HW3"
+authors:
+  - name: Rich Pihlstrom 
+    email: rlp70@georgetown.edu
+    affiliation: Georgetown University
+    corresponding: true  
+  - name: Lindsay Strong
+    email: ls1568@georgetown.edu 
+    affiliation: Georgetown University
+    corresponding: true
+  - name: Lianghui Yi
+    email: ly297@georgetown.edu
+    affiliation: Georgetown University
+    corresponding: true    
+df-print: kable
+title-block-banner: "#E69F0095"
+title-block-banner-color: "black"
+code-fold: true
+format:
+  html:
+    df-print: kable
+    theme: cosmo
+    toc: true
+    page-layout: full
+    code-tools: true
+    embed-resources: true
+    smooth-scroll: true
+prefer-html: true
+---
+# 🗳 Introduction
+
+Misinformation threatens democracy. In 2020, claims of a stolen election gained significant traction across social media. This undermined public trust in democracy, eventually inciting an insurrection. Leading up to the 2024 Election, pervasive misinformation continues to characterize the social media landscape and threaten democracy.
+
+> Video Of Capitol Riot 
+
+{{< video https://www.youtube.com/embed/DXnHIJkZZAs>}}
+
+**Main Goal**: Reduce the spread of election-related misinformation and increase exposure to fact-based content.
+
+---
+
+# 🎯 Research Goals
+
+- Understand and mitigate voting-related misinformation for 2024.
+- Increase access to accurate, fact-checked voting information.
+- Build a real-time response pipeline to counter emerging false claims.
+
+---
+
+# 📊 Methodology
+
+![Data Collection Flow](imgs/fig4.png)
+
+
+## Data Collection  
+- Collected social media posts using election-related hashtags.  
+- Used cosine similarity and cross-encoding for classification.
+
+###  Misinformation Claim Categories
+
+We identified 4 popular categories of election misinformation claims:
+
+![A pie chart of the proportions of our claim categories. Claims about election fraud were the most popular, with fairly even distribution across the other categories. We include a General Voting label for claims that do not fall under the main four.](imgs/fig5.png)
+
+- Voter Registration
+- Election Fraud
+- Voter Eligibility
+- Voter Restriction
+
+![An example of a “Voter Eligibility” misinformation claim by Donald Trump. He suggests that Americans living overseas cannot are ineligible to vote, but that is not true.](imgs/fig6.png)
+
+
+## Intervention Strategy  
+
+While most platforms already have ways to combat misinformation, they often simply attach the true statement onto the false claim. This inadvertently still propagates misinformation. To address this, we focus on only posting true statements to social media spaces discussing misinformation.
+
+![Existing misinformation intervention strategies.](imgs/false_claim.png)
+
+
+
+- Designed *intervention statements* containing only truth.  
+- Avoided repeating false claims in responses.
+
+![An intervention statement that we posted to Truth Social on 11/7. Instead of restating the claim that “if you don’t put a special stamp on your ballot, it won’t be valid,” we simply state a true fact about USPS postage requirements for voting mail.](imgs/fig7.png)
+
+:::: {.panel-tabset}
+## Pre-bunking Example
+> **Claim**: “You need a special stamp to vote by mail.”  
+> **Response**: “No special stamp is required. USPS delivers all mail-in ballots with regular postage.”
+
+## De-bunking Example
+> **Claim Tweet**: “Overseas citizens can’t vote!”  
+> **Reply**: “U.S. citizens living abroad can absolutely vote. Request an absentee ballot at FVAP.gov.”
+::::
+
+## Platforms  
+
+We considered 5 popular social media platforms in the U.S for our intervention:
+
+- X, Truth Social, Reddit, YouTube, TikTok (limited automation)  
+
+![Data Sources](imgs/tab2.png)
+
+---
+
+## ⚙️ Real-Time Classification
+
+Efficiently labeling recent social media posts with our misinformation claim categories is integral to our real-time debunking procedure:
+
+- Collected recent social media posts using election and voting related hashtags and keywords
+- Used cosine similarity and cross-encoding to determine the claim label
+- Responded to the post with the relevant intervention statement 
+
+![Histogram of cross-encoded similarity scores between claims and X posts. We use a threshold of 0.2 to determine if a claim and post are similar enough to reliably label. From the chart, we see that a very small number of classified posts met this threshold for our claims.](imgs/fig1.png)
+
+![Bar graph showing the percent of Truth Social posts that have a cosine similarity >0.5 with their classified label. Voter registration is much higher, suggesting greater reliability of our model to identify such posts.](imgs/fig2.png)
+
+![Table listing number of classified posts and evaluation metrics for a hand-labeled sample of classification for Truth Social and X. The topic labeler for Truth Social performed well in our set.](imgs/tab1.png)
+
+💬 Intervention Types
+
+
+```{r}
+library(DT)
+datatable(data.frame(Type=c("Pre-bunking", "De-bunking"), 
+                    Description=c("Stand-alone factual post", "Reply to false post")))
+```
+
+# 🧪 Results
+
+- Successfully posted intervention statements on all platforms
+- Automated pre-bunking for X, Truth Social, Reddit, and YouTube
+- Automated de-bunking for X
+
+![Line plot showing post impressions over time. Interestingly, impressions spike on and after election day rather than before. This suggests that discussion of misinformation claims rises greatly between election day and result determination.](imgs/fig3.png)
+
+Engagement
+
+- Utilized relevant hashtags to improve the reach of our intervention statement posts.
+- Monitored frequency and content of responses to our posts in order to measure the social media pulse leading up to an election
+
+```{r}
+library(plotly)
+plot_ly(x = c("Nov 5", "Nov 6", "Nov 7", "Nov 8"),
+        y = c(120, 150, 450, 200),
+        type = 'scatter', mode = 'lines+markers',
+        name = "Post Impressions") %>%
+  layout(title = "Post Engagement Leading Up to Election Day",
+         xaxis = list(title = "Date"),
+         yaxis = list(title = "Impressions"))
+```
+
+![Table of intervention metrics for each platform. TikTok’s restrictions on both political messages and automated posting prevented us from automating posts. For debunking, we focused on X given its popularity and our existing account following.](imgs/tab3.png)
+
+## 🚧 Limitations
+
+- Low follower counts limited reach.
+- Platform restrictions (e.g., TikTok, Reddit) blocked some content.
+
+## 🔍 Main Finding
+
+Posting only true, standalone facts about voting—without repeating false claims—reduces the spread of election misinformation and can be applied in real-time.
+
+## 🌟 Impact
+
+- Constructed a framework with which emerging misinformation claims can be quickly identified in real-time
+- Improved on existing misinformation intervention strategies by emphasizing the exclusive use of true statements
+- Exposed politically active social media users to more truthful information about the 2024 Election
+
+## 🚀 Next Steps
+
+- Expand to new platforms (e.g., BlueSky)
+- Improve classification speed & accuracy
+- Build audience reach via MDI accounts
+
+### 🧠 Ethical Considerations
+
+> How do we remain politically unbiased when identifying and debunking election misinformation if the misinformation is inherently skewed toward one political party?
+
+## 🙌 Acknowledgements
+
+Supported by:
+
+- Massive Data Institute
+- Georgetown Computer Science, DSPP, Tech & Public Policy
+- NSF REU Program
+
+# 📁 Appendix / Downloads
+
+- Download Poster PDF
+- GitHub Repo (Coming Soon)
