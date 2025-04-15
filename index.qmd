@@ -54,6 +54,7 @@ Misinformation threatens democracy. In 2020, claims of a stolen election gained 
 ![Data Collection Flow](imgs/fig4.png)
 
 
+:::: {.panel-tabset}
 ## Data Collection  
 - Collected social media posts using election-related hashtags.  
 - Used cosine similarity and cross-encoding for classification.
@@ -85,15 +86,13 @@ While most platforms already have ways to combat misinformation, they often simp
 
 ![An intervention statement that we posted to Truth Social on 11/7. Instead of restating the claim that “if you don’t put a special stamp on your ballot, it won’t be valid,” we simply state a true fact about USPS postage requirements for voting mail.](imgs/fig7.png)
 
-:::: {.panel-tabset}
-## Pre-bunking Example
+### Pre-bunking Example
 > **Claim**: “You need a special stamp to vote by mail.”  
 > **Response**: “No special stamp is required. USPS delivers all mail-in ballots with regular postage.”
 
-## De-bunking Example
+### De-bunking Example
 > **Claim Tweet**: “Overseas citizens can’t vote!”  
 > **Reply**: “U.S. citizens living abroad can absolutely vote. Request an absentee ballot at FVAP.gov.”
-::::
 
 ## Platforms  
 
@@ -118,17 +117,14 @@ Efficiently labeling recent social media posts with our misinformation claim cat
 ![Bar graph showing the percent of Truth Social posts that have a cosine similarity >0.5 with their classified label. Voter registration is much higher, suggesting greater reliability of our model to identify such posts.](imgs/fig2.png)
 
 ![Table listing number of classified posts and evaluation metrics for a hand-labeled sample of classification for Truth Social and X. The topic labeler for Truth Social performed well in our set.](imgs/tab1.png)
-
-💬 Intervention Types
-
-
-```{r}
-library(DT)
-datatable(data.frame(Type=c("Pre-bunking", "De-bunking"), 
-                    Description=c("Stand-alone factual post", "Reply to false post")))
-```
+::::
 
 # 🧪 Results
+
+:::: {.panel-tabset}
+## 🔍 Main Finding
+
+> Posting only true, standalone facts about voting—without repeating false claims—reduces the spread of election misinformation and can be applied in real-time.
 
 - Successfully posted intervention statements on all platforms
 - Automated pre-bunking for X, Truth Social, Reddit, and YouTube
@@ -136,21 +132,10 @@ datatable(data.frame(Type=c("Pre-bunking", "De-bunking"),
 
 ![Line plot showing post impressions over time. Interestingly, impressions spike on and after election day rather than before. This suggests that discussion of misinformation claims rises greatly between election day and result determination.](imgs/fig3.png)
 
-Engagement
+## Engagement
 
 - Utilized relevant hashtags to improve the reach of our intervention statement posts.
 - Monitored frequency and content of responses to our posts in order to measure the social media pulse leading up to an election
-
-```{r}
-library(plotly)
-plot_ly(x = c("Nov 5", "Nov 6", "Nov 7", "Nov 8"),
-        y = c(120, 150, 450, 200),
-        type = 'scatter', mode = 'lines+markers',
-        name = "Post Impressions") %>%
-  layout(title = "Post Engagement Leading Up to Election Day",
-         xaxis = list(title = "Date"),
-         yaxis = list(title = "Impressions"))
-```
 
 ![Table of intervention metrics for each platform. TikTok’s restrictions on both political messages and automated posting prevented us from automating posts. For debunking, we focused on X given its popularity and our existing account following.](imgs/tab3.png)
 
@@ -158,10 +143,6 @@ plot_ly(x = c("Nov 5", "Nov 6", "Nov 7", "Nov 8"),
 
 - Low follower counts limited reach.
 - Platform restrictions (e.g., TikTok, Reddit) blocked some content.
-
-## 🔍 Main Finding
-
-Posting only true, standalone facts about voting—without repeating false claims—reduces the spread of election misinformation and can be applied in real-time.
 
 ## 🌟 Impact
 
@@ -175,11 +156,13 @@ Posting only true, standalone facts about voting—without repeating false claim
 - Improve classification speed & accuracy
 - Build audience reach via MDI accounts
 
-### 🧠 Ethical Considerations
+## 🧠 Ethical Considerations
 
-> How do we remain politically unbiased when identifying and debunking election misinformation if the misinformation is inherently skewed toward one political party?
+How do we remain politically unbiased when identifying and debunking election misinformation if the misinformation is inherently skewed toward one political party?
 
-## 🙌 Acknowledgements
+::::
+
+# 🙌 Acknowledgements
 
 Supported by:
 
